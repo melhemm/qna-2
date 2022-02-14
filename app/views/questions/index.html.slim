@@ -1,0 +1,4 @@
+- @questions.each do |q|
+  p= link_to q.title, q
+- if user_signed_in?
+  p= link_to 'Ask question', new_question_path
