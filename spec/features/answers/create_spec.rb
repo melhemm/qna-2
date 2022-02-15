@@ -1,31 +1,38 @@
 require 'rails_helper'
 
-feature 'User can give an answer', %q{
-  In order to share my knowledge
+feature 'User can write answers for a question', %q{
+  In order to write answer to a question
   As an authenticated user
-  I want to be able to create answers
-} do
+  I'd like to be able to write an answer
+} do 
 
   given(:user) { create(:user) }
-  given!(:question) { create(:question) }
+  given!(:question) { create(:question, user: user) }
 
-  scenario 'Authenticated user create answer', js: true do
-    sign_in(user)
-    visit question_path(question)
+  describe 'Authenticated user can write question', js: true do
+    background do
+      sign_in(user)
+      visit question_path(question)
+    end
+  
+    scenario 'write an answer' do
 
-    fill_in 'Your answer', with: 'My answer'
-    click_on 'Create'
+      fill_in 'answer[body]', with: 'text text text'
+      click_on 'Create'
 
-    expect(current_path).to eq question_path(question)
-    within '.answers' do 
-      expect(page).to have_content 'My answer'
+      expect(current_path).to eq question_path(question)
+      expect(page).to have_content 'text text text'
     end
   end
 
-  scenario 'Authenticated user creates answer with errors', js: true do
+  scenario 'Unauthenticated user tries to write an answer', js: true do
+    visit question_path(question)
+    expect(page).to_not have_link 'Create'
+  end
+
+  scenario 'write answer with errors', js: true do
     sign_in(user)
     visit question_path(question)
-
     click_on 'Create'
 
     expect(page).to have_content "Body can't be blank"
