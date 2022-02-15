@@ -30,7 +30,33 @@ feature 'Authenticated user can edit his answer', %q{
       expect(page).to have_content 'edited answer'
       expect(page).to_not have_selector 'textarea'
     end
+  end
 
-    
+  scenario 'author can edit his answer', js: true do
+    sign_in(author)
+    visit question_path(question)
+    expect(page).to have_content "MyText"
+    click_on "Edit"
+
+    within '.answers' do
+      fill_in "Your answer", with: ""
+      click_on 'Save'
+
+      expect(page).to have_content answer.body
+      expect(page).to have_selector 'textarea'
+    end
+  end
+
+  scenario "member tries to edit other user's question" do
+    sign_in(user)
+    visit question_path(question)
+
+    expect(page).to_not have_link 'Edit'
+  end
+
+  scenario 'Unauthenticated can not edit answer' do
+    visit question_path(question)
+
+    expect(page).to_not have_link 'Edit'
   end
 end
