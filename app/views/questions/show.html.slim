@@ -6,10 +6,11 @@ p= @question.body
 
 .answers
   = render @question.answers
+- if user_signed_in?
+  .answer-errors
+    = render 'shared/errors', resource: @answer
 
-.answer-errors
-  = render 'shared/errors', resource: @answer
-= form_with model: [@question, @answer], class: 'new-answer' do |f|
-  = f.label :body, 'Your answer'
-  = f.text_area :body
-  = f.submit 'Create'
+  = form_with model: [@question, @answer], class: 'new-answer' do |f|
+    = f.label :body, 'Your answer'
+    = f.text_area :body
+    = f.submit 'Create'

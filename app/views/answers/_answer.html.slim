@@ -1,4 +1,11 @@
 p= answer.body
 
 - if current_user&.author?(answer)
-  = link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
+  p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
+  br
+  = link_to 'Edit', "#", class: 'edit-answer-link', data: {answer_id: answer.id}
+  br
+  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
+    - f.label :body, 'Your answer'
+    = f.text_area :body
+    = f.submit 'Save'
