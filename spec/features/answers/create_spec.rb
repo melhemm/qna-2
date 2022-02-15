@@ -25,7 +25,7 @@ feature 'User can write answers for a question', %q{
     end
   end
 
-  scenario 'Unauthenticated user tries to write an answer', js: true do
+  scenario 'Unauthenticated user tries to write an answer' do
     visit question_path(question)
     expect(page).to_not have_link 'Create'
   end
