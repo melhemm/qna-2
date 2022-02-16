@@ -34,6 +34,17 @@ RSpec.describe AnswersController, type: :controller do
   describe 'DELETE #destroy' do
     before { login(user) }
     let!(:answer) { create :answer, question: question, user: user }
+
+    context 'user is author' do
+      it 'deletes the answer' do
+        expect { delete :destroy, params: { id: answer }, format: :js }.to change(question.answers, :count).by(-1)
+      end
+
+      it 'renders destroy template' do
+        delete :destroy, params: { id: answer, format: :js }
+        expect(response).to render_template :destroy
+      end
+    end
   end
 
   describe 'PATCH #update' do

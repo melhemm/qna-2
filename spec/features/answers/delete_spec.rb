@@ -15,8 +15,7 @@ feature 'User can delete his answer', %q{
     visit question_path(question)
     expect(page).to have_content 'MyText'
     click_on "Delete answer"
-
-    expect(page).to have_content "answer deleted"
+    
     expect(page).to_not have_content 'MyText'
   end
 
@@ -30,5 +29,4 @@ feature 'User can delete his answer', %q{
     visit question_path(question)
     expect(page).to_not have_link 'Delete answer'
   end
-
 end
