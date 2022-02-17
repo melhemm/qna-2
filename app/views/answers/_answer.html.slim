@@ -1,4 +1,10 @@
-p= answer.body
+- if answer.best?
+  .best_answer
+    h3= 'Best answer:'
+    p= answer.body
+else 
+  h4= 'Answer'
+  p= answer.body
 
 - if current_user&.author?(answer)
   p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
@@ -9,3 +15,10 @@ p= answer.body
     - f.label :body, 'Your answer'
     = f.text_area :body
     = f.submit 'Save'
+
+- if current_user&.author?(answer.question) && !answer.best?
+  p= link_to 'Choose the best', best_answer_path(answer),
+    class: 'best-answer-link',
+    remote: true,
+    method: :patch,
+    data: { answer_id: answer.id }

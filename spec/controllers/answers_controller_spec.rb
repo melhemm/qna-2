@@ -78,4 +78,40 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'POST #best' do
+    let(:member) { create(:user) }
+    let!(:question) { create(:question, user: user) }
+    let!(:answer) { create(:answer, question: question, user: user) }
+
+    context 'Authenticated user as author' do
+      before { login(user) }
+
+      it 'select answer as best' do
+        post :best, params: { id: answer, format: :js }
+        answer.reload
+        expect(answer).to be_best
+      end
+
+      it 'render best template' do
+        post :best, params: { id: answer, format: :js }
+        expect(response).to render_template :best
+      end
+    end
+
+    context 'Unauthenticated user as member' do
+      before { login(member) }
+
+      it "can't select the best answer" do
+        post :best, params: { id: answer, format: :js }
+        answer.reload
+        expect(answer).to_not be_best
+      end
+
+      it 'render best template' do
+        post :best, params: { id: answer, format: :js }
+        expect(response).to render_template :best
+      end
+    end
+  end
 end

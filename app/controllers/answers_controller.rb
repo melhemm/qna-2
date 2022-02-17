@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
-  before_action :set_answer,  only: %i[show update destroy]
+  before_action :set_answer,  only: %i[show update destroy best]
   before_action :set_question, only: %i[create]
 
   def index; end
@@ -24,6 +24,10 @@ class AnswersController < ApplicationController
 
   def destroy
     return @answer.destroy if current_user&.author?(@answer)
+  end
+
+  def best
+    @answer.best! if current_user.author?(@answer.question)
   end
 
   private
