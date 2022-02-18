@@ -1,24 +1,25 @@
-- if answer.best?
-  .best_answer
-    h3= 'Best answer:'
+div class = "answer-#{answer.id}"
+  - if answer.best?
+    .best_answer
+      h3= 'Best answer:'
+      p= answer.body
+  else 
+    h4= 'Answer'
     p= answer.body
-else 
-  h4= 'Answer'
-  p= answer.body
 
-- if current_user&.author?(answer)
-  p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
-  br
-  = link_to 'Edit', "#", class: 'edit-answer-link', data: {answer_id: answer.id}
-  br
-  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
-    - f.label :body, 'Your answer'
-    = f.text_area :body
-    = f.submit 'Save'
+  - if current_user&.author?(answer)
+    p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
+    br
+    = link_to 'Edit', "#", class: 'edit-answer-link', data: {answer_id: answer.id}
+    br
+    = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
+      - f.label :body, 'Your answer'
+      = f.text_area :body
+      = f.submit 'Save'
 
-- if current_user&.author?(answer.question) && !answer.best?
-  p= link_to 'Choose the best', best_answer_path(answer),
-    class: 'best-answer-link',
-    remote: true,
-    method: :patch,
-    data: { answer_id: answer.id }
+  - if current_user&.author?(answer.question) && !answer.best?
+    p= link_to 'Choose the best', best_answer_path(answer),
+      class: 'best-answer-link',
+      remote: true,
+      method: :patch,
+      data: { answer_id: answer.id }

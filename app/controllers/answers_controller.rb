@@ -23,11 +23,19 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    return @answer.destroy if current_user&.author?(@answer)
+    if current_user.author?(@answer)
+      @answer.destroy
+    else
+      redirect_to @answer.question
+    end
   end
 
   def best
-    @answer.best! if current_user.author?(@answer.question)
+    if current_user.author?(@answer.question)
+      @answer.best!
+    else
+      redirect_to @answer.question
+    end
   end
 
   private
