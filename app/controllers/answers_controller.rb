@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: %i[show]
-  before_action :set_answer, only: %i[show destroy]
+  before_action :set_answer,  only: %i[show update destroy best]
   before_action :set_question, only: %i[create]
 
   def index; end
@@ -17,14 +17,24 @@ class AnswersController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    @answer.update(answers_params)
+    @question = @answer.question
+  end
 
   def destroy
-    if current_user&.author?(@answer)
+    if current_user.author?(@answer)
       @answer.destroy
-      redirect_to question_path(@answer.question), notice: 'answer deleted'
     else
-      redirect_to question_path(@answer.question)
+      redirect_to @answer.question
+    end
+  end
+
+  def best
+    if current_user.author?(@answer.question)
+      @answer.best!
+    else
+      redirect_to @answer.question
     end
   end
 
