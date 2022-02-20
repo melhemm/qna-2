@@ -15,7 +15,11 @@ div class = "answer-#{answer.id}"
     = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
       - f.label :body, 'Your answer'
       = f.text_area :body
+      = f.label :files
+      = f.file_field :files, multiple: true
       = f.submit 'Save'
+
+= render 'shared/attachment', resource: answer
 
   - if current_user&.author?(answer.question) && !answer.best?
     p= link_to 'Choose the best', best_answer_path(answer),

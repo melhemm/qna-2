@@ -23,6 +23,16 @@ feature 'User can write answers for a question', %q{
       expect(current_path).to eq question_path(question)
       expect(page).to have_content 'text text text'
     end
+
+    scenario 'write answer with file' do
+      fill_in 'answer[body]', with: 'text text text'
+
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Create'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
   end
 
   scenario 'Unauthenticated user tries to write an answer' do

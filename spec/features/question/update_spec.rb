@@ -10,7 +10,7 @@ feature 'Authenticated user can edit his Question', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question, user: author) }
 
-  scenario 'Unauthenticated user trying to Edit answer' do
+  scenario 'Unauthenticated user trying to Edit Question' do
     visit question_path(question)
     expect(page).to_not have_link 'Edit Question'
   end
@@ -30,6 +30,20 @@ feature 'Authenticated user can edit his Question', %q{
       expect(page).to_not have_selector 'textarea'
       expect(page).to have_content 'edited title'
       expect(page).to have_content 'edited body'
+    end
+  end
+
+  scenario 'Author trying to Edit Question with attached files', js: true do
+    sign_in(author)
+    visit question_path(question)
+    click_on "Edit Question"
+
+    within '.question' do
+      attach_file 'question[files][]', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Save'
+      save_and_open_page
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
     end
   end
 
