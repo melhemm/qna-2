@@ -21,6 +21,11 @@
 
   .attachment
     = render 'shared/attachment', resource: @question
+  .links
+    p Links:
+    ul
+     - @question.links.each do |link|
+       li= link_to link.name, link.url
     
 h1 Answers
 
