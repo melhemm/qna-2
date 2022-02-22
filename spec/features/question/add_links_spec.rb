@@ -7,20 +7,56 @@ feature 'User can add links to question', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:gist_url) {'https://gist.github.com/melhemm/9c86bc772b834a2e92dc8b1734c3c5c6'}
+  given!(:gist_url) {"https://gist.github.com/melhemm/9c86bc772b834a2e92dc8b1734c3c5c6"}
+  given!(:link) {"https://stackoverflow.com"}
+  given!(:question) { create(:question, user: user) }
   
-  scenario 'User add link when asks question' do
-    sign_in(user)
-    visit new_question_path
+  describe 'User add link when asks question', js: true do
+    background do
+      sign_in(user)
 
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+      visit questions_path
+      click_on 'Ask question'
+    end
 
-    fill_in "Link name", with: "My gist"
-    fill_in "Url", with: gist_url
-    
-    click_on 'Ask'
+    scenario 'user ask with links' do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+      fill_in "Link name", with: 'My gist'
+      fill_in "Url", with: gist_url
 
-    expect(page).to have_link 'My gist', href: gist_url
+      click_on 'Add link'
+
+      within all('.nested-fields').last do
+        fill_in 'Link name', with: 'stackoverflow'
+        fill_in 'Url', with: link
+      end
+
+      click_on 'Ask'
+      save_and_open_page
+
+      within '.question' do
+        expect(page).to have_link('My gist', href: gist_url)
+        expect(page).to have_link('stackoverflow', href: link)
+      end
+    end
+
+    scenario 'user ask with err links' do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+      fill_in "Link name", with: 'string'
+      fill_in "Url", with: 'text'
+  
+      click_on 'Add link'
+  
+      within all('.nested-fields').last do
+        fill_in 'Link name', with: 'stackoverflow'
+        fill_in 'Url', with: 'not-link'
+      end
+  
+      click_on 'Ask'
+      save_and_open_page
+      expect(page).to have_content 'Links url is not a valid URL'
+    end
   end
 end

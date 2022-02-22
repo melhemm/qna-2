@@ -20,6 +20,7 @@ gem 'cloudinary'
 gem "dotenv-rails"
 gem "cocoon"
 gem 'validate_url'
+gem 'pry'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

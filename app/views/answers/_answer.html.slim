@@ -7,10 +7,14 @@ div class = "answer-#{answer.id}"
     h4= 'Answer'
     p= answer.body
     .links
+    - if answer.links.present?
       p Links:
       ul
         - answer.links.each do |link|
-          li= link_to link.name, link.url
+          - if link.gist_link?
+           script src="#{link.url}.js"
+          - else 
+           li= link_to link.name, link.url
 
   - if current_user&.author?(answer)
     p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
