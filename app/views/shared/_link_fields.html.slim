@@ -1,0 +1,11 @@
+.nested-fields
+  p
+    = f.label :name, 'Link name'
+    br
+    = f.text_field :name
+  p
+    = f.label :url
+    br
+    = f.text_field :url
+
+  = link_to_remove_association "Delete field", f
