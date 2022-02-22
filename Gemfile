@@ -18,6 +18,7 @@ gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
 gem 'cloudinary'
 gem "dotenv-rails"
+gem "cocoon"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
