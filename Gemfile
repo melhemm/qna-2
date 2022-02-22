@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'cloudinary'
 gem "dotenv-rails"
 gem "cocoon"
+gem 'validate_url'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
