@@ -6,15 +6,7 @@ div class = "answer-#{answer.id}"
   else 
     h4= 'Answer'
     p= answer.body
-    .links
-    - if answer.links.present?
-      p Links:
-      ul
-        - answer.links.each do |link|
-          - if link.gist_link?
-           script src="#{link.url}.js"
-          - else 
-           li= link_to link.name, link.url
+    = render 'shared/links', resource: answer
 
   - if current_user&.author?(answer)
     p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
@@ -26,6 +18,12 @@ div class = "answer-#{answer.id}"
       = f.text_area :body
       = f.label :files
       = f.file_field :files, multiple: true
+      p
+      = f.fields_for :links do |link|
+       = render 'shared/link_fields',  f: link
+      .link
+       = link_to_add_association 'Add link', f, :links, partial: 'shared/link_fields'
+
       = f.submit 'Save'
 
 = render 'shared/attachment', resource: answer
