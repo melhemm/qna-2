@@ -6,7 +6,7 @@ class Question < ApplicationRecord
 
   belongs_to :user, class_name: 'User'
 
-  accepts_nested_attributes_for :links, reject_if: :all_blank
+  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
 
   validates :title, :body, presence: true
   validates :body, presence: :true

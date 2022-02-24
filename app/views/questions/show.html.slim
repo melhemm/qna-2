@@ -13,15 +13,7 @@
 
   .attachment
     = render 'shared/attachment', resource: @question
-  - if @question.links.present?
-    .links
-      p Links:
-      ul
-      - @question.links.each do |link|
-        - if link.gist_link?
-          script src="#{link.url}.js"
-        - else 
-          li= link_to link.name, link.url
+    = render 'shared/links', resource: @question
     
 h1 Answers
 
