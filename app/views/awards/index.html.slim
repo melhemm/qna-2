@@ -1,0 +1,6 @@
+h1 Your awards
+- @awards.each do |award|
+  div class="awards" id="award-#{award.id}"
+    p= award.question.title
+    p= award.title
+    p= image_tag award.image, size: '50', id: "award-image"

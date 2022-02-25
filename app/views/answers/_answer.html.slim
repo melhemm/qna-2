@@ -2,7 +2,9 @@ div class = "answer-#{answer.id}"
   - if answer.best?
     .best_answer
       h3= 'Best answer:'
-      p= answer.body
+      - if answer.question.award.present?
+        h3= "#{answer.user.email} got the award for best answer"
+        p= answer.body
   else 
     h4= 'Answer'
     p= answer.body
@@ -28,9 +30,9 @@ div class = "answer-#{answer.id}"
 
 = render 'shared/attachment', resource: answer
 
-  - if current_user&.author?(answer.question) && !answer.best?
-    p= link_to 'Choose the best', best_answer_path(answer),
-      class: 'best-answer-link',
-      remote: true,
-      method: :patch,
-      data: { answer_id: answer.id }
+- if current_user&.author?(answer.question) && !answer.best?
+  p= link_to 'Choose the best', best_answer_path(answer),
+    class: 'best-answer-link',
+    remote: true,
+    method: :patch,
+    data: { answer_id: answer.id }
