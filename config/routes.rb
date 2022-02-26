@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   root to: 'questions#index'
 
   resources :attachments, only: :destroy
+  resources :awards, only: :index
 end

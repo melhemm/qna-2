@@ -2,10 +2,13 @@ div class = "answer-#{answer.id}"
   - if answer.best?
     .best_answer
       h3= 'Best answer:'
-      p= answer.body
+      - if answer.question.award.present?
+        h3= "#{answer.user.email} got the award for best answer"
+        p= answer.body
   else 
     h4= 'Answer'
     p= answer.body
+    = render 'shared/links', resource: answer
 
   - if current_user&.author?(answer)
     p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
@@ -17,13 +20,19 @@ div class = "answer-#{answer.id}"
       = f.text_area :body
       = f.label :files
       = f.file_field :files, multiple: true
+      p
+      = f.fields_for :links do |link|
+       = render 'shared/link_fields',  f: link
+      .link
+       = link_to_add_association 'Add link', f, :links, partial: 'shared/link_fields'
+
       = f.submit 'Save'
 
 = render 'shared/attachment', resource: answer
 
-  - if current_user&.author?(answer.question) && !answer.best?
-    p= link_to 'Choose the best', best_answer_path(answer),
-      class: 'best-answer-link',
-      remote: true,
-      method: :patch,
-      data: { answer_id: answer.id }
+- if current_user&.author?(answer.question) && !answer.best?
+  p= link_to 'Choose the best', best_answer_path(answer),
+    class: 'best-answer-link',
+    remote: true,
+    method: :patch,
+    data: { answer_id: answer.id }
