@@ -3,6 +3,8 @@
 .question-body
   h4= @question.body
 
+= render 'shared/voting', resource: @question
+
 .question
   - if current_user&.author?(@question)
     p= link_to 'Edit Question', '#', class: 'edit-question-link', data: { question_id: @question.id }

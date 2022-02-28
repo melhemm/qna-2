@@ -8,6 +8,8 @@ RSpec.describe Question, type: :model do
   
   it { should belong_to :user }
 
+  it_behaves_like 'votable'
+
   it { should accept_nested_attributes_for :links }
   it { should accept_nested_attributes_for :award }
 

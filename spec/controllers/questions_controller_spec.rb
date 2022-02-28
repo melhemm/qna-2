@@ -154,5 +154,8 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
-  
+
+  it_behaves_like 'voted' do
+    let!(:voted) { create(:question, user: author) }
+  end  
 end
