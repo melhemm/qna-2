@@ -3,6 +3,8 @@ class AnswersController < ApplicationController
   before_action :set_answer,  only: %i[show update destroy best]
   before_action :set_question, only: %i[create]
 
+  include Voted
+
   def index; end
 
   def show; end
