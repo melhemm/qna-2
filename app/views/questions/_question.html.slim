@@ -1,2 +1,4 @@
-h3 = question.title
-p = link_to 'Show', question_path(question)
+.card
+  .card-body
+    h1= question.title
+    = link_to 'Read Question', question_path(question)

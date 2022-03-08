@@ -1,4 +1,10 @@
 - if user_signed_in?
-  p= link_to 'Ask question', new_question_path
+  = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
+hr
+.questions-list.collection
+  - if @questions.any?
+    = render @questions
+  - else
+    div
+      .col.s6.offset-s3.center No questions found(
 
-= render @questions

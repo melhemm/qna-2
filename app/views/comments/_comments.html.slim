@@ -1,0 +1,7 @@
+.list
+  - if resource&.comments.present?
+    h4= 'Comments'
+    - resource.comments.each do |comment|
+      = render comment
+
+= render 'comments/form', resource: resource

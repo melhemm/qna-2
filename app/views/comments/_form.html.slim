@@ -1,0 +1,11 @@
+- if current_user && current_user.author?(resource)
+  p= "Add your comment"
+  div class="#{resource.class.to_s.downcase}-#{resource.id}-form-comment"
+    .comment-errors
+      = render 'shared/errors', resource: resource
+    = form_with model: [resource, Comment.new], local: false do |f|
+      p
+        - f.label :body
+        = f.text_area :body
+      p  
+        = f.submit 'Comment'

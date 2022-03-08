@@ -5,6 +5,7 @@ RSpec.describe Answer, type: :model do
   it { should belong_to :user }
 
   it { should have_many(:links).dependent(:destroy) }
+  it { should have_many(:comments).dependent(:destroy) }
 
   it_behaves_like 'votable'
 
