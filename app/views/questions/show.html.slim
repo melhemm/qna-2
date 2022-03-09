@@ -17,6 +17,10 @@
     = render 'shared/attachment', resource: @question
     = render 'shared/links', resource: @question
     
+.question
+  div class="question-#{@question.id}-comments"
+    = render 'comments/comments', resource: @question
+
 h1 Answers
 
 .answers

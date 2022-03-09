@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :questions, concerns: [:votable] do
     resources :answers, shallow: true, concerns: [:votable] do
       patch :best, on: :member
+      resources :comments, defaults: { commentable: 'answer' }
     end
+    resources :comments, defaults: { commentable: 'question' }
   end
 
   root to: 'questions#index'

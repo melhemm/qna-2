@@ -21,6 +21,8 @@ gem "dotenv-rails"
 gem "cocoon"
 gem 'validate_url'
 gem 'pry'
+gem 'actioncable'
+gem 'gon'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

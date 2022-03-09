@@ -1,0 +1,6 @@
+$('.comment-errors').html('<%= render 'shared/errors', resource: @comment %>');
+
+<% if @comment.persisted? %>
+  $('.<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %>-comments .list').append('<%= j render @comment %>');
+  $('.<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %>-form-comment #comment_body').val('');
+<% end %>
