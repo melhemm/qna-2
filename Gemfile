@@ -23,6 +23,8 @@ gem 'validate_url'
 gem 'pry'
 gem 'actioncable'
 gem 'gon'
+gem 'omniauth'
+gem 'omniauth-github'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
