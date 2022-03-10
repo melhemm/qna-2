@@ -25,6 +25,7 @@ gem 'actioncable'
 gem 'gon'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'omniauth-vkontakte'
 gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
