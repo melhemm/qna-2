@@ -1,5 +1,9 @@
-- if user_signed_in?
+/ - if user_signed_in?
+/   = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
+
+- if can?(:create, Question)
   = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
+
 hr
 .questions-list.collection
   - if @questions.any?
@@ -7,4 +11,3 @@ hr
   - else
     div
       .col.s6.offset-s3.center No questions found(
-

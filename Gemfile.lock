@@ -54,6 +54,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (10.0.2)
+    cancancan (3.3.0)
     capybara (3.10.1)
       addressable
       mini_mime (>= 0.1.3)
@@ -366,6 +367,7 @@ DEPENDENCIES
   actioncable
   bootsnap (>= 1.1.0)
   byebug
+  cancancan
   capybara
   capybara-email
   chromedriver-helper
