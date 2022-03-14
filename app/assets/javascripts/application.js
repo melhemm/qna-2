@@ -15,6 +15,7 @@
 //= require action_cable
 //= require turbolinks
 //= require jquery3
+//= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
 //= require cocoon

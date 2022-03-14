@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
-
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks', confirmations: 'confirmations' }
+  
   concern :votable do
     member { post :vote }
     member { post :revote }
