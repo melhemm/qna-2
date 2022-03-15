@@ -10,9 +10,10 @@ div class = "answer-#{answer.id}"
     p= answer.body
     = render 'shared/links', resource: answer
 
-  - if current_user&.author?(answer)
+  - if can?(:destroy, answer)
     p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
     br
+  - if can?(:update, answer)
     = link_to 'Edit', "#", class: 'edit-answer-link', data: {answer_id: answer.id}
     br
     = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
@@ -34,7 +35,7 @@ div class = "answer-#{answer.id}"
 div class="answer-#{answer.id}-comments"
   = render 'comments/comments', resource: answer
 
-- if current_user&.author?(answer.question) && !answer.best?
+- if can?(:best, answer) && !answer.best?
   p= link_to 'Choose the best', best_answer_path(answer),
     class: 'best-answer-link',
     remote: true,

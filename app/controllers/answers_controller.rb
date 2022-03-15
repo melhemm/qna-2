@@ -4,6 +4,8 @@ class AnswersController < ApplicationController
   before_action :set_question, only: %i[create]
 
   after_action :publish_answer, only: :create
+
+  authorize_resource
   
   include Voted
 
@@ -27,11 +29,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user.author?(@answer)
-      @answer.destroy
-    else
-      redirect_to @answer.question
-    end
+    @answer.destroy
+    flash[:notice] = 'Answer successfully deleted.'
   end
 
   def best

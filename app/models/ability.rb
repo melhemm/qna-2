@@ -24,6 +24,23 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer], user_id: user.id
+    can :update, [Question, Answer, Comment], user_id: user.id
+    can :destroy, [Question, Answer, Comment], user_id: user.id
+    can :destroy, ActiveStorage::Attachment, record: { user_id: user.id }
+
+    can :destroy, Link do |resource|
+      user.author?(resource.linkable)
+    end
+
+    can :best, Answer do |resource|
+      user.author?(resource.question)
+    end
+
+    can :vote, [Question, Answer]
+    cannot :vote, [Question, Answer], user_id: user.id
+
+    can :revote, [Question, Answer] do |resource|
+      resource.votes.find_by(user_id: user.id)
+    end
   end
 end

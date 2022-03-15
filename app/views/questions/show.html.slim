@@ -6,7 +6,7 @@
 = render 'shared/voting', resource: @question
 
 .question
-  - if current_user&.author?(@question)
+  - if can?(:update, @question)
     p= link_to 'Edit Question', '#', class: 'edit-question-link', data: { question_id: @question.id }
   .question-errors
     = render 'shared/errors', resource: @question
@@ -25,7 +25,7 @@ h1 Answers
 
 .answers
   = render @question.answers
-- if user_signed_in?
+- if can?(:create, Answer)
   .answer-errors
     = render 'shared/errors', resource: @answer
 
