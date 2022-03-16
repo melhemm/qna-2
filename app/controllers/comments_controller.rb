@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   before_action :set_commentable, only: %i[create @commentable]
   after_action :publish_comment, only: :create
 
+  authorize_resource
+
   def new
     @comment = Comment.new
   end
