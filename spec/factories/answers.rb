@@ -7,9 +7,9 @@ FactoryBot.define do
       body { nil }
     end
 
-    trait :files do
-      after(:create) do |question|
-        question.files.attach(io: File.open("#{Rails.root}/spec/rails_helper.rb"), filename: 'rails_helper.rb')
+    trait :with_files do
+      after(:create) do |answer|
+        answer.files.attach(io: File.open("#{Rails.root}/spec/rails_helper.rb"), filename: 'rails_helper.rb')
       end
     end
   end
