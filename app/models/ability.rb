@@ -42,5 +42,7 @@ class Ability
     can :revote, [Question, Answer] do |resource|
       resource.votes.find_by(user_id: user.id)
     end
+
+    can :me, User, id: user.id
   end
 end
