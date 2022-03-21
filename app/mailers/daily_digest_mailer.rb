@@ -1,7 +1,7 @@
 class DailyDigestMailer < ApplicationMailer
   def digest(user)
-    @greeting = "Hi"
+    @questions = Question.daily_mail
 
-    mail to: user.email
+    mail to: user.email, subject: 'List of new questions'
   end
 end

@@ -2,6 +2,7 @@ class Question < ApplicationRecord
   include Votable
   
   has_many :answers, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
   has_many :comments, dependent: :destroy, as: :commentable
   
@@ -16,6 +17,8 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
   validates :body, presence: :true
+
+  scope :daily_mail, -> { where(created_at: Date.today.all_day) }
 
   after_create :calculate_reputation
 

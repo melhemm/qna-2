@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :comments, defaults: { commentable: 'answer' }
     end
     resources :comments, defaults: { commentable: 'question' }
+    resources :subscriptions, only: [:create, :destroy], shallow: true
   end
 
   namespace :api do

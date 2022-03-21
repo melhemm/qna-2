@@ -17,11 +17,17 @@ class Answer < ApplicationRecord
   
   scope :best, -> { where(best: true) }
 
+  after_save :answer_notification
+
   def best!
     transaction do
       question.answers.best.update_all(best: false)
       update!(best: true)
       question.award&.update!(user: user)
     end
+  end
+
+  def answer_notification
+    NewAnswerNotificationJob.perform_later(self)
   end
 end
