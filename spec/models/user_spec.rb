@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:authorizations).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
   it { should have_many :awards }
   it { should have_many :votes }
 
@@ -49,6 +50,21 @@ RSpec.describe User, type: :model do
       expect(FindForOauth).to receive(:new).with(auth).and_return(service)
       expect(service).to receive(:call)
       User.find_for_oauth(auth)
+    end
+  end
+  
+  describe '#subscribed?' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    let(:other_question) { create(:question, user: user) }
+
+    it 'subscription user' do
+      create(:subscription, user: user, question: question)
+      expect(user).to be_subscribed(question)
+    end
+
+    it 'unsubscription user' do
+      expect(user).to_not be_subscribed(other_question)
     end
   end
 end

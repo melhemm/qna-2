@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :awards, dependent: :destroy, foreign_key: :user_id
   has_many :votes, dependent: :destroy, foreign_key: :user_id
   has_many :comments, dependent: :destroy, foreign_key: :user_id
+  has_many :subscriptions, dependent: :destroy
 
   def author?(author)
     author.user_id == id
@@ -25,6 +26,10 @@ class User < ApplicationRecord
 
   def create_authorization(auth)
     self.authorizations.create(provider: auth.provider, uid: auth.uid)
+  end
+
+  def subscribed?(question)
+    self.subscriptions.exists?(question: question)
   end
   
 end
