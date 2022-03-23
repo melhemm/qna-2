@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'questions#index'
+  get :search, to: 'search#index'
 
   resources :attachments, only: :destroy
   resources :awards, only: :index

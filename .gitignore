@@ -29,3 +29,6 @@
 
 .idea
 .env
+dump.rdb
+config/*.sphinx.conf
+db/sphinx
