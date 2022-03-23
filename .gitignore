@@ -29,6 +29,3 @@
 
 .idea
 .env
-dump.rdb
-config/*.shpinx.conf
-db/shpinx
