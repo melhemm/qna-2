@@ -34,6 +34,8 @@ gem 'oj'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'whenever', require: false
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -62,6 +64,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'capybara-email'
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
