@@ -15,9 +15,9 @@ set :rails_env, :production
 #
 # Global options
 # --------------
- set :ssh_options, {
-  keys: %w(/home/user_name/.ssh/id_rsa),
-  forward_agent: true,
-  auth_methods: %w(publickey password), 
-  port: 2222
- }
+set :ssh_options, {
+keys: %w(/home/mac-book/.ssh/id_rsa),
+forward_agent: true,
+auth_methods: %w(publickey password), 
+port: 2222
+}
