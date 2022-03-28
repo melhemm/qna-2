@@ -1,6 +1,3 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
 ruby '2.5.3'
 
 gem 'rails', '~> 5.2.1'
@@ -36,6 +33,7 @@ gem 'sinatra', require: false
 gem 'whenever', require: false
 gem 'mysql2'
 gem 'thinking-sphinx'
+gem 'mini_racer'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
