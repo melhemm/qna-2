@@ -20,6 +20,7 @@ gem 'validate_url'
 gem 'pry'
 gem 'actioncable'
 gem 'gon'
+gem 'skim'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-vkontakte'
@@ -34,6 +35,7 @@ gem 'whenever', require: false
 gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'mini_racer'
+gem 'redis'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
