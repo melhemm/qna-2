@@ -3,7 +3,7 @@ lock "~> 3.17.0"
 
 set :application, "qna"
 set :repo_url, "git@github.com:melhemm/qna-2.git"
-
+set :branch, 'main'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -38,3 +38,5 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpack
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+after 'deploy:publishing', 'unicorn:restart'

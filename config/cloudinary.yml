@@ -4,8 +4,14 @@ development:
   api_secret: <%= ENV['API_SECRET'] %>
 
 production:
-  cloud_name: <%= ENV['CLOUD_NAME'] %>
-  api_key: <%= ENV['API_KEY'] %>
-  api_secret: <%= ENV['API_SECRET'] %>
+  cloud_name: drddmdkvv
+  api_key: 111916834938315
+  api_secret: 9XArXRBj88ve84CYc6jO5cKsdH0
   secure: true
   cdn_domain: true
+
+export CLOUD_NAME=drddmdkvv
+export API_KEY=111916834938315
+export API_SECRET=9XArXRBj88ve84CYc6jO5cKsdH0
+export APP_ID=9d1155276e97c6c6980b
+export APP_SECRET=3ecf25de77a75b0e43f9cda056c0fb0575f70d28
