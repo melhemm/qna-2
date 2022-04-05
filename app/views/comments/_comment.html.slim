@@ -1,3 +1,4 @@
 p= "User #{comment.user.email} add a comment"
-p "#{comment.body}"
+- cache comment do
+  p "#{comment.body}"
 hr

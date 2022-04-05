@@ -1,14 +1,15 @@
-div class = "answer-#{answer.id}"
-  - if answer.best?
-    .best_answer
-      h3= 'Best answer:'
-      - if answer.question.award.present?
-        h3= "#{answer.user.email} got the award for best answer"
-        p= answer.body
-  else 
-    h4= 'Answer'
-    p= answer.body
-    = render 'shared/links', resource: answer
+- cache answer do   
+  div class = "answer-#{answer.id}"
+    - if answer.best?
+      .best_answer
+        h3= 'Best answer:'
+        - if answer.question.award.present?
+          h3= "#{answer.user.email} got the award for best answer"
+          p= answer.body
+    else 
+      h4= 'Answer'
+      p= answer.body
+      = render 'shared/links', resource: answer
 
   - if can?(:destroy, answer)
     p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true

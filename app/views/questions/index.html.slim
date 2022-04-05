@@ -1,13 +1,11 @@
-/ - if user_signed_in?
-/   = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
+- cache collection_cache_key_for :question do
+  - if can?(:create, Question)
+    = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
 
-- if can?(:create, Question)
-  = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
-
-hr
-.questions-list.collection
-  - if @questions.any?
-    = render @questions
-  - else
-    div
-      .col.s6.offset-s3.center No questions found(
+  hr
+  .questions-list.collection
+    - if @questions.any?
+      = render @questions
+    - else
+      div
+        .col.s6.offset-s3.center No questions found(
