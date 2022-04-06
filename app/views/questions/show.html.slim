@@ -1,40 +1,40 @@
-- if can?(:create, Subscription) || can?(:destroy, @subscription)
-  .subscription
-    - if current_user.subscribed?(@question)
-      = link_to 'Unsubscribe', subscription_path(@subscription), method: :delete, remote: true, class: 'unsubscribe'
-    - else
-      = link_to 'Subscribe', question_subscriptions_path(@question), method: :post, remote: true, class: 'subscribe' 
+- cache @question do
+  - if can?(:create, Subscription) || can?(:destroy, @subscription)
+    .subscription
+      - if current_user.subscribed?(@question)
+        = link_to 'Unsubscribe', subscription_path(@subscription), method: :delete, remote: true, class: 'unsubscribe'
+      - else
+        = link_to 'Subscribe', question_subscriptions_path(@question), method: :post, remote: true, class: 'subscribe' 
 
+  .question-title
+    h1= @question.title
+  .question-body
+    h4= @question.body
 
-.question-title
-  h1= @question.title
-.question-body
-  h4= @question.body
+  = render 'shared/voting', resource: @question
 
-= render 'shared/voting', resource: @question
+  .question
+    - if can?(:update, @question)
+      p= link_to 'Edit Question', '#', class: 'edit-question-link', data: { question_id: @question.id }
+    .question-errors
+      = render 'shared/errors', resource: @question
 
-.question
-  - if can?(:update, @question)
-    p= link_to 'Edit Question', '#', class: 'edit-question-link', data: { question_id: @question.id }
-  .question-errors
-    = render 'shared/errors', resource: @question
+    = render 'edit_form'
 
-  = render 'edit_form'
+    .attachment
+      = render 'shared/attachment', resource: @question
+      = render 'shared/links', resource: @question
+      
+  .question
+    div class="question-#{@question.id}-comments"
+      = render 'comments/comments', resource: @question
 
-  .attachment
-    = render 'shared/attachment', resource: @question
-    = render 'shared/links', resource: @question
-    
-.question
-  div class="question-#{@question.id}-comments"
-    = render 'comments/comments', resource: @question
+  h1 Answers
 
-h1 Answers
+  .answers
+    = render @question.answers
+  - if can?(:create, Answer)
+    .answer-errors
+      = render 'shared/errors', resource: @answer
 
-.answers
-  = render @question.answers
-- if can?(:create, Answer)
-  .answer-errors
-    = render 'shared/errors', resource: @answer
-
-  = render 'answers/form'
+    = render 'answers/form'
