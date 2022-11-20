@@ -1,24 +1,19 @@
-# README
+# Stackoverflow clone (по функционалу) - Учебный проект 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Пользователи могут зарегистрироваться или войти через соцсети VK или Github. (Devise)
 
-Things you may want to cover:
+* Пользователи могут задавать вопросы и получать ответы на вопросы.
 
-* Ruby version
+* Зарегистрированный пользователь может проголосовать за чужой понравившийся вопрос.
 
-* System dependencies
+* Автор вопроса может выбрать лучший ответ.
 
-* Configuration
+* Ответы на вопросы обновляются в режиме реального времени. (Action cable)
 
-* Database creation
+* REST API реализован через гем doorkeeper.
 
-* Database initialization
+* Полнотекстовый поиск на Sphinx (Почта пользователя, вопрос, ответ, имя пользователя).
 
-* How to run the test suite
+* Тестирование rspec, capybara.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Деплой проекта через Capistrano на тестовый виртуальный сервер.
